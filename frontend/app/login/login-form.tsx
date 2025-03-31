@@ -54,16 +54,15 @@ export function LoginForm() {
       if (!localStorage.getItem("user")) {
         const demoUser = {
           studentId: values.studentId,
-          name: "Demo Student",
-          department: "Electrical Engineering",
-          class: "Year 2, Class A",
-          bedAssignment: "B3309-1",
-          tags: ["Dormitory Resident", "Registered"],
+          name: "李宥丞",
+          department: "四電機三B",
+          bed: "B3309-1",
+          tags: ["住宿生", "已註冊"],
         }
         localStorage.setItem("user", JSON.stringify(demoUser))
       }
 
-      toast("登入成功！", { description: "歡迎！" })
+      toast("登入成功！")
 
       router.push("/profile")
     } catch (error: any) {
@@ -126,7 +125,7 @@ export function LoginForm() {
           </Link>
         </div>
         <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Signing in..." : "Sign In"}
+          {isLoading ? "登入中..." : "登入"}
         </Button>
       </form>
     </Form>
