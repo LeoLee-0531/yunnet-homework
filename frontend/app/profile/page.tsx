@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { toast } from "sonner"
 
@@ -36,11 +36,9 @@ export default function ProfilePage() {
       try {
         const parsedData = JSON.parse(userDataStr)
         setUserData(parsedData)
-      } catch (error: any) {
+      } catch (error) {
         console.error("Failed to parse user data", error)
-        toast("載入用戶資料失敗", {
-          description: error.message || "請檢查您的帳號和密碼"
-        })
+        toast("載入用戶資料失敗")
       }
     }
 
