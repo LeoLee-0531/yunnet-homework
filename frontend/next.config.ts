@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+const nextConfig = {
+  output: "export",
+  basePath: process.env.NODE_ENV === "production" ? "/yunnet-homework" : "",
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
