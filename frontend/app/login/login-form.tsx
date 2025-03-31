@@ -40,14 +40,8 @@ export function LoginForm() {
     setIsLoading(true)
 
     try {
-      // In a real app, you would validate credentials with your backend
-      console.log(values)
+      // TODO 實作 API 登入
 
-      // Simulate API call
-      // await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // For demo purposes, we'll just set a flag in localStorage
-      // In a real app, this would involve proper authentication
       localStorage.setItem("isLoggedIn", "true")
 
       // If no user data exists yet, create some demo data

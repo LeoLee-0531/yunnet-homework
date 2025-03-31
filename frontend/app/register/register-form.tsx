@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Eye, EyeOff } from "lucide-react"  // 眼睛圖示
+import { Eye, EyeOff } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -53,32 +53,6 @@ export function RegisterForm() {
 
     try {
       // TODO 將結果傳置後端
-      console.log(values)
-
-      // Simulate API call
-      // await new Promise((resolve, reject) => {
-      //   setTimeout(() => {
-      //     // 檢查是否有重複的學生ID (模擬可能的後端錯誤)
-      //     const existingUser = localStorage.getItem("user");
-      //     if (existingUser && JSON.parse(existingUser).studentId === values.studentId) {
-      //       reject(new Error("Student ID already registered"));
-      //     } else {
-      //       resolve(true);
-      //     }
-      //   }, 1000);
-      // });
-
-      // Store user data in localStorage for demo purposes
-      // In a real app, this would be handled by your backend
-      // const userData = {
-      //   studentId: values.studentId,
-      //   bedAssignment: "B3309-1", // Example data
-      //   class: "Year 2, Class A", // Example data
-      //   tags: ["Dormitory Resident", "Registered"], // Example data
-      // }
-
-      // localStorage.setItem("user", JSON.stringify(userData))
-      // localStorage.setItem("isLoggedIn", "true")
 
       toast.success("註冊成功", {
         description: "帳號已建立，請登入",
