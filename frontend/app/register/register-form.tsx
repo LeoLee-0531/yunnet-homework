@@ -85,10 +85,8 @@ export function RegisterForm() {
       })
 
       router.push("/login")
-    } catch (error: any) {
-      toast.error("註冊失敗", {
-        description: error.message || "請稍後再試"
-      })
+    } catch {
+      toast("註冊失敗")
     } finally {
       setIsLoading(false)
     }

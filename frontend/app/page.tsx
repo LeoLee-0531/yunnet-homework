@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 export default function Home() {
   return (
@@ -7,7 +8,12 @@ export default function Home() {
       <header className="py-4">
         <div className="container mx-auto flex items-center justify-between">
           <Link href="/">
-            <img src="/Yunnet-light.svg" alt="logo" width={200} />
+            <Image
+              src="/Yunnet-light.svg"
+              alt="logo"
+              width={200}
+              priority
+            />
           </Link>
           <div className="flex gap-4">
             <Button asChild variant="secondary">
