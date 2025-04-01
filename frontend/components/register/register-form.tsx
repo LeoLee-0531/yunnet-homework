@@ -1,7 +1,5 @@
 "use client"
 
-import Link from "next/link"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -14,16 +12,23 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
 
-const formSchema = z.object({
-  studentId: z.string().min(1, {
-    message: "請填入學號",
-  }),
-  password: z.string().min(1, {
-    message: "請填入密碼",
-  }),
-})
+const formSchema = z
+  .object({
+    studentId: z.string()
+      .min(8, { message: "學號輸入錯誤" })
+      .regex(/^[A-Za-z][0-9]+$/, { message: "學號輸入錯誤" }),
+    bed: z.string()
+      .regex(/^[a-zA-Z]\d{4}-\d$/, { message: "床位輸入錯誤" }),
+    password: z.string()
+      .min(1, { message: "請輸入密碼" }),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "與密碼不相符",
+    path: ["confirmPassword"],
+  })
 
-export function LoginForm() {
+export function RegisterForm() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)  // 密碼可視狀態
@@ -32,41 +37,30 @@ export function LoginForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       studentId: "",
+      bed: "",
       password: "",
+      confirmPassword: "",
     },
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    // 確認用戶提交
+    if (!confirm("確定提交?")) {
+      return;
+    }
+
     setIsLoading(true)
 
     try {
-      // In a real app, you would validate credentials with your backend
-      console.log(values)
+      // TODO 將結果傳置後端
 
-      // Simulate API call
-      // await new Promise((resolve) => setTimeout(resolve, 1000))
+      toast.success("註冊成功", {
+        description: "帳號已建立，請登入",
+      })
 
-      // For demo purposes, we'll just set a flag in localStorage
-      // In a real app, this would involve proper authentication
-      localStorage.setItem("isLoggedIn", "true")
-
-      // If no user data exists yet, create some demo data
-      if (!localStorage.getItem("user")) {
-        const demoUser = {
-          studentId: values.studentId,
-          name: "李宥丞",
-          department: "四電機三B",
-          bed: "B3309-1",
-          tags: ["住宿生", "已註冊"],
-        }
-        localStorage.setItem("user", JSON.stringify(demoUser))
-      }
-
-      toast("登入成功！")
-
-      router.push("/profile")
+      router.push("/login")
     } catch {
-      toast("登入失敗")
+      toast("註冊失敗")
     } finally {
       setIsLoading(false)
     }
@@ -82,7 +76,20 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>學號</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input placeholder="B11112159" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="bed"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>床位</FormLabel>
+              <FormControl>
+                <Input placeholder="A1203-4" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -117,13 +124,24 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <div className="text-right text-sm">
-          <Link href="/forgot-password" className="text-primary hover:underline">
-            忘記密碼?
-          </Link>
-        </div>
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>密碼確認</FormLabel>
+              <FormControl>
+                <Input
+                  type="password"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "登入中..." : "登入"}
+          {isLoading ? "註冊中..." : "註冊"}
         </Button>
       </form>
     </Form>

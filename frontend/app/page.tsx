@@ -12,6 +12,7 @@ export default function Home() {
               src="/Yunnet-light.svg"
               alt="logo"
               width={200}
+              height={50}
               priority
             />
           </Link>
