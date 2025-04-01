@@ -59,10 +59,8 @@ export function LoginForm() {
       toast("登入成功！")
 
       router.push("/profile")
-    } catch (error: any) {
-      toast("登入失敗", {
-        description: error.message || "請檢查您的帳號和密碼",
-      })
+    } catch {
+      toast("登入失敗")
     } finally {
       setIsLoading(false)
     }
