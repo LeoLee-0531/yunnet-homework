@@ -1,15 +1,17 @@
 import express from "express";
+import { PrismaClient } from "../prisma/generated/client";
 
+const prisma = new PrismaClient();
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3001;
 
-app.get("/", (req, res) => {
-  res.send("The server is working!");
+app.use(express.json());
+
+app.get("/api/users", async (req, res) => {
+  const users = await prisma.user.findMany();
+  res.json(users);
 });
 
-app.listen(port, () => {
-  if (port === 3000) {
-    console.log("true");
-  }
-  console.log(`server is listening on ${port} !!!`);
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
