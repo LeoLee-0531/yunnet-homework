@@ -150,7 +150,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/leolee/yunnet-homework/backend/prisma/generated/client",
+      "value": "/home/leo/yunnet-homework/backend/prisma/generated/client",
       "fromEnvVar": null
     },
     "config": {
@@ -164,12 +164,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/leolee/yunnet-homework/backend/prisma/schema.prisma",
+    "sourceFilePath": "/home/leo/yunnet-homework/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../..",
   "clientVersion": "6.5.0",

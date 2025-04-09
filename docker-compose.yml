@@ -4,7 +4,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000" # 假設前端在3000端口
+      - "3000:3000"
     depends_on:
       - backend
     networks:
@@ -15,7 +15,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "3002:3002"
+      - "3001:3001"
     depends_on:
       - mysql
     environment:
