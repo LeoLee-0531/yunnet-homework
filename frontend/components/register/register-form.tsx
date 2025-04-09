@@ -52,7 +52,18 @@ export function RegisterForm() {
     setIsLoading(true)
 
     try {
-      // TODO 將結果傳置後端
+      // TODO 將結果傳送到後端
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values), // 使用 values 發送到後端
+      });
+
+      if (!response.ok) {
+        throw new Error('註冊失敗');
+      }
 
       toast.success("註冊成功", {
         description: "帳號已建立，請登入",
