@@ -53,6 +53,7 @@ export function RegisterForm() {
 
     try {
       // TODO 將結果傳置後端
+      console.log("註冊資料:", values); // 使用 values 變數避免未使用錯誤
 
       toast.success("註冊成功", {
         description: "帳號已建立，請登入",
