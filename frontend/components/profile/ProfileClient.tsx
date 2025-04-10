@@ -43,7 +43,7 @@ export default function ProfileClient() {
     }
 
     setIsLoading(false)
-  }, [])
+  }, [router]) // 添加 router 作為依賴項
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn")
