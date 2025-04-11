@@ -1,57 +1,42 @@
-FROM node:20.0-alpine AS builder
-
-# 更新系統並安裝安全補丁
-RUN apk update && apk upgrade && \
-    rm -rf /var/cache/apk/*
+FROM node:20-alpine AS base
 
 # 設定工作目錄
 WORKDIR /app
 
-# 安裝 yarn 4.8.1
+# 啟用 Corepack 並準備正確版本的 Yarn
 RUN corepack enable && corepack prepare yarn@4.8.1 --activate
 
-# 複製相依性檔案
-COPY package.json yarn.lock ./
-
-# 安裝依賴
+# 安裝依賴階段
+FROM base AS deps
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn ./.yarn
 RUN yarn install
 
-# 複製源碼並建構
+# 建置階段
+FROM base AS builder
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# 構建應用
+# 修正建置命令的語法錯誤
 RUN yarn db:generate && \
-    yarn build
+    yarn build 
 
-# 執行階段映像檔
-FROM node:20.0-alpine AS runner
-
-# 更新系統並安裝安全補丁
-RUN apk update && apk upgrade && \
-    rm -rf /var/cache/apk/*
-
-WORKDIR /app
-
-RUN corepack enable && corepack prepare yarn@4.8.1 --activate
-
-# 添加環境變數
+# 執行階段
+FROM base AS runner
 ENV NODE_ENV=production
+ENV HOST=0.0.0.0
 
-# 建立非 root 用戶
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+# 確保非 root 使用者執行
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 appuser
 
-# 從建構階段複製依賴項和建構後的應用程式
-COPY --from=builder --chown=appuser:appgroup /app/package.json /app/yarn.lock ./
-COPY --from=builder --chown=appuser:appgroup /app/.yarn ./.yarn
-COPY --from=builder --chown=appuser:appgroup /app/.pnp.* ./
-COPY --from=builder --chown=appuser:appgroup /app/prisma ./prisma
-COPY --from=builder --chown=appuser:appgroup /app/dist ./dist
-
-# 安裝生產環境依賴
-RUN yarn install --production
+# 複製必要檔案
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./package.json
 
 USER appuser
 
 EXPOSE 3001
 
-CMD ["node", "dist/app.js"]
+CMD ["node", "dist/main.js"]
