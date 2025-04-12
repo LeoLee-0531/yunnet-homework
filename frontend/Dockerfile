@@ -1,41 +1,42 @@
 FROM node:20-alpine AS base
 
 # 設定工作目錄
-WORKDIR /app
+WORKDIR /app/
 
-# 啟用 Corepack 並準備正確版本的 Yarn
-RUN corepack enable && corepack prepare yarn@4.8.1 --activate
+# 建立非 root 使用者
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs && \
+    chown -R nextjs:nodejs /app
 
-# 安裝依賴階段
-FROM base AS deps
-COPY package.json yarn.lock .yarnrc.yml ./
-COPY .yarn ./.yarn
-RUN yarn install
+# 啟用 Corepack
+RUN corepack enable
+
+# 切換到 nextjs 使用者
+USER nextjs
 
 # 建置階段
 FROM base AS builder
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+
+# 複製檔案並確保所有權
+COPY --chown=nextjs:nodejs package.json yarn.lock ./
+RUN yarn install
+COPY --chown=nextjs:nodejs . .
+
 RUN yarn build
 
 # 執行階段
 FROM base AS runner
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV HOST=0.0.0.0
 
-# 確保非 root 使用者執行
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# 複製必要檔案並確保權限
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/.yarn ./.yarn
+COPY --from=builder --chown=nextjs:nodejs /app/.pnp.cjs /app/.pnp.loader.mjs /app/package.json /app/yarn.lock ./
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
-USER nextjs
+RUN yarn install
 
 EXPOSE 3000
 
-# 修改啟動命令，使用 next start 而非直接 node
-CMD ["npx", "next", "start", "-p", "3000", "-H", "0.0.0.0"]
+CMD ["yarn", "start"]

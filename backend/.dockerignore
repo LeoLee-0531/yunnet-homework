@@ -5,9 +5,7 @@
 .yarn/install-state.gz
 .pnp.*
 
-# Next.js 建置檔案
-.next/
-out/
+# express 建置檔案
 dist/
 
 # 其他常見排除項目
