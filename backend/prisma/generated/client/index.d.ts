@@ -1277,7 +1277,7 @@ export namespace Prisma {
     name: string | null
     department: string | null
     bed: string | null
-    password: string | null
+    password: string
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1344,7 +1344,7 @@ export namespace Prisma {
       name: string | null
       department: string | null
       bed: string | null
-      password: string | null
+      password: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -4143,7 +4143,7 @@ export namespace Prisma {
     name?: StringNullableFilter<"User"> | string | null
     department?: StringNullableFilter<"User"> | string | null
     bed?: StringNullableFilter<"User"> | string | null
-    password?: StringNullableFilter<"User"> | string | null
+    password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     userTags?: UserTagListRelationFilter
@@ -4155,7 +4155,7 @@ export namespace Prisma {
     name?: SortOrderInput | SortOrder
     department?: SortOrderInput | SortOrder
     bed?: SortOrderInput | SortOrder
-    password?: SortOrderInput | SortOrder
+    password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userTags?: UserTagOrderByRelationAggregateInput
@@ -4171,7 +4171,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringNullableFilter<"User"> | string | null
     department?: StringNullableFilter<"User"> | string | null
-    password?: StringNullableFilter<"User"> | string | null
+    password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     userTags?: UserTagListRelationFilter
@@ -4183,7 +4183,7 @@ export namespace Prisma {
     name?: SortOrderInput | SortOrder
     department?: SortOrderInput | SortOrder
     bed?: SortOrderInput | SortOrder
-    password?: SortOrderInput | SortOrder
+    password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -4202,7 +4202,7 @@ export namespace Prisma {
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
     department?: StringNullableWithAggregatesFilter<"User"> | string | null
     bed?: StringNullableWithAggregatesFilter<"User"> | string | null
-    password?: StringNullableWithAggregatesFilter<"User"> | string | null
+    password?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -4306,7 +4306,7 @@ export namespace Prisma {
     name?: string | null
     department?: string | null
     bed?: string | null
-    password?: string | null
+    password: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userTags?: UserTagCreateNestedManyWithoutUserInput
@@ -4318,7 +4318,7 @@ export namespace Prisma {
     name?: string | null
     department?: string | null
     bed?: string | null
-    password?: string | null
+    password: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userTags?: UserTagUncheckedCreateNestedManyWithoutUserInput
@@ -4329,7 +4329,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     bed?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userTags?: UserTagUpdateManyWithoutUserNestedInput
@@ -4341,7 +4341,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     bed?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userTags?: UserTagUncheckedUpdateManyWithoutUserNestedInput
@@ -4353,7 +4353,7 @@ export namespace Prisma {
     name?: string | null
     department?: string | null
     bed?: string | null
-    password?: string | null
+    password: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4363,7 +4363,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     bed?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4374,7 +4374,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     bed?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5063,7 +5063,7 @@ export namespace Prisma {
     name?: string | null
     department?: string | null
     bed?: string | null
-    password?: string | null
+    password: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5074,7 +5074,7 @@ export namespace Prisma {
     name?: string | null
     department?: string | null
     bed?: string | null
-    password?: string | null
+    password: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5114,7 +5114,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     bed?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5125,7 +5125,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     department?: NullableStringFieldUpdateOperationsInput | string | null
     bed?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
